@@ -133,9 +133,9 @@
       const zoneW = W / COLS;
       const zoneH = zoneW;
 
-      // Mix of 3 large, 6 medium, 3 small
-      const sizeW = { lg: W * 0.24, md: W * 0.17, sm: W * 0.12 };
-      const sizes = shuffle([...Array(3).fill('lg'), ...Array(6).fill('md'), ...Array(3).fill('sm')]);
+      // Mix of large and medium only
+      const sizeW = { lg: W * 0.24, md: W * 0.17 };
+      const sizes = shuffle([...Array(4).fill('lg'), ...Array(8).fill('md')]);
 
       const maxPhotoH = sizeW.lg * (4 / 3);
       wall.style.height = (ROWS * zoneH + maxPhotoH * 0.75) + 'px';
@@ -192,8 +192,17 @@
       const incoming = pool[idx];
       pool[idx]      = card.dataset.src;
       card.dataset.src = incoming;
+
+      const W    = document.getElementById('gallery').clientWidth;
+      const newW = W * (Math.random() > 0.5 ? 0.24 : 0.17);
+      const newH = newW * (4 / 3);
+
       card.classList.add('is-swapping');
-      setTimeout(() => { card.querySelector('img').src = incoming; }, 160);
+      setTimeout(() => {
+        card.querySelector('img').src = incoming;
+        card.style.width  = newW + 'px';
+        card.style.height = newH + 'px';
+      }, 160);
       card.addEventListener('animationend', () => card.classList.remove('is-swapping'), { once: true });
     }
 
