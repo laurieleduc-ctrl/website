@@ -181,4 +181,8 @@ h1 {
     height: auto !important;
     aspect-ratio: 3 / 4;
   }
+
+  .photo-card[data-location]::after {
+    opacity: 1;
+  }
 }
