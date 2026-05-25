@@ -114,17 +114,9 @@ h1 {
   font-weight: 700;
   color: var(--fg);
   text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3em;
+  display: inline-block;
   position: relative;
   transition: color 0.15s;
-}
-
-.ig-icon {
-  width: 0.75em;
-  height: 0.75em;
-  flex-shrink: 0;
 }
 
 .ig-link::after {
