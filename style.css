@@ -140,32 +140,6 @@ h1 {
   transform: scaleX(1);
 }
 
-/* ── MARQUEE ─────────────────────────────────── */
-
-.marquee {
-  overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  padding: 14px 0;
-}
-
-.marquee-track {
-  display: flex;
-  white-space: nowrap;
-  animation: marquee-scroll 22s linear infinite;
-}
-
-.marquee-track span {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  color: var(--muted);
-  flex-shrink: 0;
-}
-
-@keyframes marquee-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
 
 /* ── MOBILE ──────────────────────────────────── */
 
