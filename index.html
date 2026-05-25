@@ -21,49 +21,7 @@
       <p class="tagline">probably somewhere doing something</p>
     </header>
 
-    <!-- PHOTOS
-         To fill a slot, upload a photo to the images/ folder on GitHub, then
-         replace the inner <div class="photo-placeholder"> with:
-         <img src="images/YOUR-FILENAME.jpeg" alt="Laurie LeDuc">
-    -->
-    <section class="photos">
-      <div class="photo photo-1">
-        <img src="images/02A16DD8-10B7-44FD-9190-2869250CA9AB_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-2">
-        <img src="images/0E25B3EE-B60C-47AE-9CB2-2A6D91D4F60F_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-3">
-        <img src="images/11AE1946-C922-4C70-8AB7-026B50FD39C1_1_102_a.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-4">
-        <img src="images/15E9AF87-B3ED-4230-B30C-A2E48BA92D94_1_102_a.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-5">
-        <img src="images/2A950203-4449-4DEE-942F-F6AC871CCBCB_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-6">
-        <img src="images/300CB972-8F2F-4007-B290-2428D5B6CCFB_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-7">
-        <img src="images/3A2595E2-A502-45AF-AEE4-0D08AC80372B_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-8">
-        <img src="images/48645DD3-6A96-47B1-8DAC-185329140177_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-9">
-        <img src="images/564807AE-4688-4598-8506-65FBF015DD79_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-10">
-        <img src="images/5753B435-8BC0-4971-B7F6-EF2428E5636D_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-11">
-        <img src="images/57B2EBB1-FC05-40F2-9607-6F2DF5B127A9_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-      <div class="photo photo-12">
-        <img src="images/6980F6EA-25B2-49C5-96AA-D59EBCFEB6FA_1_105_c.jpeg" alt="Laurie LeDuc">
-      </div>
-    </section>
+    <section id="gallery"></section>
 
     <section class="links">
       <a
@@ -82,5 +40,136 @@
     </div>
 
   </main>
+
+  <script>
+  (function () {
+    // ── To add new photos: upload to images/ on GitHub, then add the filename here ──
+    const IMAGES = [
+      'images/02A16DD8-10B7-44FD-9190-2869250CA9AB_1_105_c.jpeg',
+      'images/0E25B3EE-B60C-47AE-9CB2-2A6D91D4F60F_1_105_c.jpeg',
+      'images/11AE1946-C922-4C70-8AB7-026B50FD39C1_1_102_a.jpeg',
+      'images/15E9AF87-B3ED-4230-B30C-A2E48BA92D94_1_102_a.jpeg',
+      'images/2A950203-4449-4DEE-942F-F6AC871CCBCB_1_105_c.jpeg',
+      'images/300CB972-8F2F-4007-B290-2428D5B6CCFB_1_105_c.jpeg',
+      'images/3A2595E2-A502-45AF-AEE4-0D08AC80372B_1_105_c.jpeg',
+      'images/48645DD3-6A96-47B1-8DAC-185329140177_1_105_c.jpeg',
+      'images/564807AE-4688-4598-8506-65FBF015DD79_1_105_c.jpeg',
+      'images/5753B435-8BC0-4971-B7F6-EF2428E5636D_1_105_c.jpeg',
+      'images/57B2EBB1-FC05-40F2-9607-6F2DF5B127A9_1_105_c.jpeg',
+      'images/6980F6EA-25B2-49C5-96AA-D59EBCFEB6FA_1_105_c.jpeg',
+      'images/6EACD8DA-91B8-48AA-B6BF-0846C242C100_1_105_c.jpeg',
+      'images/6EAE5BF9-82B3-4BC6-9ADC-9D3D2061D967_1_105_c.jpeg',
+      'images/83485C02-7ABF-42C3-95E1-42E933FBCA5C_1_102_a.jpeg',
+      'images/84437455-40B4-4B17-97D1-EBCCD65B766E_1_102_a.jpeg',
+      'images/908C9FCD-EB3E-43F3-99F6-3B57C8C1DE86_1_102_o.jpeg',
+      'images/9E784A4E-9EAD-4AA3-BF56-A7DA1C9CC912_1_105_c.jpeg',
+      'images/B2F7D2BE-2665-4979-BA29-1031EFC782F9_1_105_c.jpeg',
+      'images/B9FC0A32-08B7-404C-B40F-2291E3BBE4DB_1_105_c.jpeg',
+      'images/F98E26C3-31A7-4862-A6D6-4EED8E14AE72_1_105_c.jpeg',
+    ];
+
+    const ACCENTS = ['#ff1a54', '#ffe600', '#c026d3'];
+    const SHOW_COUNT = 12;
+    let pool = [];
+
+    function rand(min, max) { return min + Math.random() * (max - min); }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function buildGallery() {
+      const wall = document.getElementById('gallery');
+      if (!wall) return;
+
+      const W = wall.clientWidth || wall.offsetWidth;
+      if (!W) { requestAnimationFrame(buildGallery); return; }
+
+      const shuffled = shuffle(IMAGES);
+      const showing  = shuffled.slice(0, SHOW_COUNT);
+      pool = shuffled.slice(SHOW_COUNT);
+
+      wall.innerHTML = '';
+
+      if (W < 640) {
+        // Mobile: simple 2-col grid, CSS handles layout
+        showing.forEach((src, i) => wall.appendChild(makeCard(src, i, false)));
+        return;
+      }
+
+      // Desktop: zone-based scattered layout
+      const COLS = 4, ROWS = 3;
+      const zoneW = W / COLS;
+      const zoneH = zoneW;
+      const photoW = W * 0.22;
+      const photoH = photoW * (4 / 3);
+
+      wall.style.height = (ROWS * zoneH + photoH * 0.75) + 'px';
+
+      const zones = [];
+      for (let r = 0; r < ROWS; r++)
+        for (let c = 0; c < COLS; c++)
+          zones.push([r, c]);
+
+      shuffle(zones).forEach(([row, col], i) => {
+        if (i >= SHOW_COUNT) return;
+        const src  = showing[i];
+        const baseX = col * zoneW + (zoneW - photoW) / 2;
+        const baseY = row * zoneH + (zoneH - photoH) / 2;
+        const x = Math.max(0, Math.min(W - photoW, baseX + rand(-zoneW * 0.18, zoneW * 0.18)));
+        const y = Math.max(0, baseY + rand(-zoneH * 0.14, zoneH * 0.14));
+
+        const card = makeCard(src, i, true);
+        card.style.left   = x + 'px';
+        card.style.top    = y + 'px';
+        card.style.width  = photoW + 'px';
+        card.style.height = photoH + 'px';
+        card.style.zIndex = String(Math.floor(rand(1, 13)));
+        wall.appendChild(card);
+      });
+    }
+
+    function makeCard(src, i, absolute) {
+      const rot    = rand(-9, 9);
+      const color  = ACCENTS[i % ACCENTS.length];
+      const sdx    = (Math.random() > 0.5 ? 1 : -1) * rand(3, 5);
+
+      const card = document.createElement('div');
+      card.className   = absolute ? 'photo-card' : 'photo-card photo-card--grid';
+      card.dataset.src = src;
+      card.style.transform = `rotate(${rot}deg)`;
+      card.style.setProperty('--rot', `${rot}deg`);
+      card.style.boxShadow = `${sdx}px 5px 0 ${color}`;
+
+      const img = document.createElement('img');
+      img.src   = src;
+      img.alt   = 'Laurie LeDuc';
+      img.loading = 'lazy';
+      card.appendChild(img);
+      card.addEventListener('click', () => swapPhoto(card));
+      return card;
+    }
+
+    function swapPhoto(card) {
+      if (!pool.length || card.classList.contains('is-swapping')) return;
+      const idx      = Math.floor(Math.random() * pool.length);
+      const incoming = pool[idx];
+      pool[idx]      = card.dataset.src;
+      card.dataset.src = incoming;
+      card.classList.add('is-swapping');
+      setTimeout(() => { card.querySelector('img').src = incoming; }, 160);
+      card.addEventListener('animationend', () => card.classList.remove('is-swapping'), { once: true });
+    }
+
+    document.addEventListener('DOMContentLoaded', buildGallery);
+    let rTimer;
+    window.addEventListener('resize', () => { clearTimeout(rTimer); rTimer = setTimeout(buildGallery, 250); });
+  })();
+  </script>
 </body>
 </html>

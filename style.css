@@ -63,62 +63,45 @@ h1 {
   color: var(--muted);
 }
 
-/* ── PHOTOS ──────────────────────────────────── */
+/* ── GALLERY ─────────────────────────────────── */
 
-.photos {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(16px, 2vw, 28px);
-  padding: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 72px);
+#gallery {
+  position: relative;
+  margin: clamp(48px, 7vw, 96px) clamp(24px, 5vw, 72px);
 }
 
-.photo {
-  aspect-ratio: 3 / 4;
+.photo-card {
+  position: absolute;
   border-radius: 3px;
   overflow: hidden;
-  position: relative;
-  transition: transform 0.35s ease;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  will-change: transform;
 }
 
-.photo:hover {
-  z-index: 10 !important;
-  transform: rotate(0deg) scale(1.05) !important;
+.photo-card:hover {
+  transform: rotate(0deg) scale(1.06) !important;
+  z-index: 100 !important;
 }
 
-.photo img {
+.photo-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  pointer-events: none;
 }
 
-.photo-placeholder {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: 1px dashed rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.12);
+.photo-card.is-swapping {
+  animation: photo-swap 0.35s ease forwards;
 }
 
-.photo-1  { transform: rotate(-3deg);   box-shadow: -3px 4px 0 var(--pink); }
-.photo-2  { transform: rotate(2deg);    box-shadow:  3px 4px 0 var(--yellow); }
-.photo-3  { transform: rotate(-2deg);   box-shadow: -3px 4px 0 var(--purple); }
-.photo-4  { transform: rotate(3.5deg);  box-shadow:  3px 4px 0 var(--pink); }
-.photo-5  { transform: rotate(-4deg);   box-shadow: -3px 4px 0 var(--yellow); }
-.photo-6  { transform: rotate(1.5deg);  box-shadow:  3px 4px 0 var(--purple); }
-.photo-7  { transform: rotate(-1deg);   box-shadow: -3px 4px 0 var(--pink); }
-.photo-8  { transform: rotate(3deg);    box-shadow:  3px 4px 0 var(--yellow); }
-.photo-9  { transform: rotate(-3.5deg); box-shadow: -3px 4px 0 var(--purple); }
-.photo-10 { transform: rotate(2.5deg);  box-shadow:  3px 4px 0 var(--pink); }
-.photo-11 { transform: rotate(-2deg);   box-shadow: -3px 4px 0 var(--yellow); }
-.photo-12 { transform: rotate(4deg);    box-shadow:  3px 4px 0 var(--purple); }
+@keyframes photo-swap {
+  0%   { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+  45%  { opacity: 0; transform: rotate(var(--rot)) scale(0.88); }
+  55%  { opacity: 0; transform: rotate(var(--rot)) scale(0.88); }
+  100% { opacity: 1; transform: rotate(var(--rot)) scale(1); }
+}
 
 /* ── LINKS ───────────────────────────────────── */
 
@@ -184,17 +167,22 @@ h1 {
   to   { transform: translateX(-50%); }
 }
 
-/* ── RESPONSIVE ──────────────────────────────── */
+/* ── MOBILE ──────────────────────────────────── */
 
-@media (max-width: 900px) {
-  .photos {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .photos {
+@media (max-width: 640px) {
+  #gallery {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
+    height: auto !important;
+  }
+
+  .photo-card {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4;
   }
 }
