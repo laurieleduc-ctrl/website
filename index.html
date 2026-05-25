@@ -94,6 +94,43 @@
       'images/F98E26C3-31A7-4862-A6D6-4EED8E14AE72_1_105_c.jpeg',
     ];
 
+    const LOCATIONS = {
+      '01DAC543-3009-4FBD-BA82-E0352305079F_1_105_c.jpeg': 'Bocas del Toro, Panama',
+      '02A16DD8-10B7-44FD-9190-2869250CA9AB_1_105_c.jpeg': 'Hardap Region, Namibia',
+      '09369A30-DE90-4250-9E0C-48F416363C94_1_105_c.jpeg': 'San Pablo de Lípez, Bolivia',
+      '104CE033-1FEE-4707-BC4A-67D35FC0043F_1_105_c.jpeg': 'Cusipata, Peru',
+      '11AE1946-C922-4C70-8AB7-026B50FD39C1_1_102_a.jpeg': 'Utah, United States',
+      '15E9AF87-B3ED-4230-B30C-A2E48BA92D94_1_102_a.jpeg': 'Zion, United States',
+      '2A950203-4449-4DEE-942F-F6AC871CCBCB_1_105_c.jpeg': 'Mohave Desert, United States',
+      '2F67363A-FEC4-418A-A8EF-E5A98EB64087_1_105_c.jpeg': 'Torres del Paine, Chile',
+      '3A2595E2-A502-45AF-AEE4-0D08AC80372B_1_105_c.jpeg': 'Cape Town, South Africa',
+      '416898B2-8DD4-47E4-BFE5-66902C31A82E_1_102_a.jpeg': 'Sydney, Australia',
+      '45CD0D1A-5BE2-4535-A3D5-363AA3953CE1_1_105_c.jpeg': 'Žabljak, Montenegro',
+      '48645DD3-6A96-47B1-8DAC-185329140177_1_105_c.jpeg': 'Black Rock City, United States',
+      '5062019C-3DF0-4BFF-B944-0BF707182447_1_105_c.jpeg': 'Lago Argentino, Argentina',
+      '523F853D-1C97-4750-BA63-A31288DD581C_1_105_c.jpeg': 'Salento, Colombia',
+      '564807AE-4688-4598-8506-65FBF015DD79_1_105_c.jpeg': 'Giza, Egypt',
+      '57B2EBB1-FC05-40F2-9607-6F2DF5B127A9_1_105_c.jpeg': 'Morondava, Madagascar',
+      '5A0A1BB9-D548-4276-BE5F-2BB24D198CC6_1_105_c.jpeg': 'Atacama, Bolivia',
+      '5F2CED1F-3A95-44A5-BFB7-93ED4D1A1C7C_1_105_c.jpeg': 'Yosemite, United States',
+      '6455744B-A5A3-4B43-8D68-BE331CDDC148_1_105_c.jpeg': 'Yosemite, United States',
+      '681799ED-DF71-484D-9C7F-E96254FFA15F_1_105_c.jpeg': 'Cairo, Egypt',
+      '71538351-7BA3-4673-8C72-8C15AD633C7F_1_105_c.jpeg': 'Tulum, Mexico',
+      '79FF247E-176A-42BE-AC50-C3BBB618B23B_1_105_c.jpeg': 'Ica, Peru',
+      '7DB917D2-195D-4AB8-9C7C-507553AA3928_1_105_c.jpeg': 'Oaxaca, Mexico',
+      '7FF30E32-D31D-49A7-9E42-5245EFA7E965_1_105_c.jpeg': 'Cahuita, Costa Rica',
+      '83485C02-7ABF-42C3-95E1-42E933FBCA5C_1_102_a.jpeg': 'Ao Nang, Thailand',
+      '84437455-40B4-4B17-97D1-EBCCD65B766E_1_102_a.jpeg': 'Cederberg, South Africa',
+      '8BC4630B-4985-48A1-A41A-5ACD047FD929_1_105_c.jpeg': 'Torres del Paine, Chile',
+      '993EFFE2-716F-44ED-88F7-158D8733EA4C_1_105_c.jpeg': 'Uyuni, Bolivia',
+      'AF29C32E-D5B8-4D6B-87E3-0D1D31B61A73_1_105_c.jpeg': 'Franschhoek, South Africa',
+      'B89DF5A1-4ABD-4A4F-95B9-9F904ECFB458_1_105_c.jpeg': 'Atacama, Bolivia',
+      'E08B8EBA-447B-4191-96DE-DDB875D3292D_1_105_c.jpeg': 'La Paz, Bolivia',
+      'E4AFA039-D641-4D6C-B955-C4405299BF0A_1_105_c.jpeg': 'Atacama, Bolivia',
+      'EAE84524-1736-4040-B15B-1EEB0FDFF4CD_1_105_c.jpeg': 'Sydney, Australia',
+      'F39DDE7A-57E6-499F-B115-B4C56C1F0FC6_1_105_c.jpeg': 'San Pablo de Lípez, Bolivia',
+    };
+
     const ACCENTS = ['#ff1a54', '#ffe600', '#c026d3'];
     const SHOW_COUNT = 12;
     let pool = [];
@@ -173,6 +210,8 @@
       const card = document.createElement('div');
       card.className   = absolute ? 'photo-card' : 'photo-card photo-card--grid';
       card.dataset.src = src;
+      const loc = LOCATIONS[src.split('/').pop()];
+      if (loc) card.dataset.location = loc;
       card.style.transform = `rotate(${rot}deg)`;
       card.style.setProperty('--rot', `${rot}deg`);
       card.style.boxShadow = `${sdx}px 5px 0 ${color}`;
@@ -202,6 +241,9 @@
         card.querySelector('img').src = incoming;
         card.style.width  = newW + 'px';
         card.style.height = newH + 'px';
+        const newLoc = LOCATIONS[incoming.split('/').pop()];
+        if (newLoc) card.dataset.location = newLoc;
+        else delete card.dataset.location;
       }, 160);
       card.addEventListener('animationend', () => card.classList.remove('is-swapping'), { once: true });
     }
