@@ -163,6 +163,95 @@ h1 {
 }
 
 
+/* ── CONTACT ─────────────────────────────────── */
+
+.contact {
+  padding: 0 clamp(24px, 5vw, 72px) clamp(64px, 9vw, 120px);
+}
+
+.contact-heading {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(48px, 8vw, 112px);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--fg);
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+#contact-form {
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.contact-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+#contact-form input,
+#contact-form textarea {
+  width: 100%;
+  background: rgba(242, 237, 232, 0.05);
+  border: 1px solid rgba(242, 237, 232, 0.15);
+  border-radius: 3px;
+  color: var(--fg);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  resize: none;
+}
+
+#contact-form input::placeholder,
+#contact-form textarea::placeholder {
+  color: rgba(242, 237, 232, 0.35);
+}
+
+#contact-form input:focus,
+#contact-form textarea:focus {
+  border-color: var(--pink);
+}
+
+.contact-btn {
+  align-self: flex-start;
+  background: var(--pink);
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 12px 28px;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.contact-btn:hover:not(:disabled) {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.contact-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.contact-status {
+  font-size: 13px;
+  font-weight: 300;
+  font-style: italic;
+  min-height: 1.4em;
+}
+
+.contact-status--ok  { color: var(--yellow); }
+.contact-status--err { color: var(--pink); }
+
 /* ── MOBILE ──────────────────────────────────── */
 
 @media (max-width: 640px) {
@@ -184,5 +273,14 @@ h1 {
 
   .photo-card[data-location]::after {
     opacity: 1;
+  }
+
+  .contact-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-btn {
+    width: 100%;
+    text-align: center;
   }
 }
