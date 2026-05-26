@@ -132,7 +132,7 @@ h1 {
 }
 
 .ig-link {
-  font-size: clamp(24px, 4.5vw, 64px);
+  font-size: clamp(16px, 2vw, 28px);
   font-weight: 700;
   color: var(--fg);
   text-decoration: none;
